@@ -39,10 +39,10 @@ class MonacoEditor extends React.Component {
     editorDidMount(editor, monaco);
     editor.onDidChangeModelContent(event => {
       const value = editor.getValue();
-      
+
       // Always refer to the latest value
       this.__current_value = value;
-      
+
       // Only invoking when user input changed
       if (!this.__prevent_trigger_change_event) {
         onChange(value, event);
@@ -60,7 +60,7 @@ class MonacoEditor extends React.Component {
           context.require.config(requireConfig);
         }
       }
-      
+
       // Load monaco
       context.require(['vs/editor/editor.main'], () => {
         this.initMonaco();
@@ -79,7 +79,7 @@ class MonacoEditor extends React.Component {
         }
       }
     };
-    
+
     // Load AMD loader if necessary
     if (context.__REACT_MONACO_EDITOR_LOADER_ISPENDING__) {
       // We need to avoid loading multiple loader.js when there are multiple editors loading concurrently
@@ -107,7 +107,7 @@ class MonacoEditor extends React.Component {
     const { language, theme, options } = this.props;
     const containerElement = this.refs.container;
     const context = this.props.context || window;
-    if (typeof context.monaco !== 'undefined') {
+    if (containerElement && typeof context.monaco !== 'undefined') {
       // Before initializing monaco editor
       this.editorWillMount(context.monaco);
       this.editor = context.monaco.editor.create(containerElement, {
